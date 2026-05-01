@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+    <title>Hero Section - Simphiwe Mtetwa</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           HERO-ONLY STYLES - EXTRACTED & CLEANED
+           ============================================ */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #1a4d3e;
+            --primary-dark: #153d32;
+            --lime-green: #c4d82e;
+            --lime-hover: #b5cc28;
+            --dark-text: #1a1a1a;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --white: #ffffff;
+            --accent-teal: #4e676b;
+
+            --vamtam-icon-nav: '\e906';
+            --vamtam-icon-close: '\e90c';
+            --vamtam-icon-search: '\e902';
+            --vamtam-icon-arrow-dawn: '\e912';
+            --vamtam-icon-arrow-up: '\e910';
+        }
+
+        @font-face {
+            font-family: 'vamtam-theme';
+            src: url(https://finovate.vamtam.com/wp-content/themes/finovate/vamtam/assets/fonts/theme-icons/theme-icons.woff2) format('woff2'),
+                url(https://finovate.vamtam.com/wp-content/themes/finovate/vamtam/assets/fonts/theme-icons/theme-icons.woff) format('woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        .vamtamtheme- {
+            font-family: 'vamtam-theme' !important;
+            speak: never;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .vamtam-theme-nav::before { content: var(--vamtam-icon-nav); }
+        .vamtam-theme-close::before { content: var(--vamtam-icon-close); }
+        .vamtam-theme-search::before { content: var(--vamtam-icon-search); }
+        .vamtam-theme-arrow-dawn::before { content: var(--vamtam-icon-arrow-dawn); }
+        .vamtam-theme-arrow-up::before { content: var(--vamtam-icon-arrow-up); }
+
+        body {
+            font-family: 'Helvetica', 'BlinkMacSystemFont', -apple-system, 'Roboto', 'Lucida Sans', sans-serif;
+            color: var(--dark-text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* ============================================
+           NAVIGATION SYSTEM (Hero Integration)
+           ============================================ */
+
+        .top-nav {
+            background: transparent;
+            padding: 24px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .top-nav.scrolled {
+            background: #1a4d3d;
+            padding: 15px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: none;
+            margin: 0;
+            padding: 0 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-right-wrap {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 65px;
+            width: auto;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover img {
+            transform: scale(1.03);
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 48px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .main-nav > li {
+            position: relative;
+        }
+
+        .main-nav > li > a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .main-nav > li > a:hover {
+            color: var(--lime-green);
+        }
+
+        .top-nav.scrolled .main-nav > li > a {
+            color: #ffffff;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            background: var(--white);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border-radius: 0 0 16px 16px;
+            padding: 40px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-top: 4px solid var(--primary-green);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            z-index: 999;
+        }
+
+        .main-nav > li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown li {
+            list-style: none;
+            margin-bottom: 8px;
+        }
+
+        .dropdown li a {
+            display: block;
+            padding: 8px 0;
+            color: #444;
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.2s;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+        }
+
+        .dropdown li a:hover {
+            color: var(--primary-green);
+            border-bottom-color: var(--lime-green);
+            padding-left: 10px;
+        }
+
+        .elementor-icon {
+            display: inline-block;
+            line-height: 1;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            color: var(--primary-green);
+            font-size: 20px;
+            padding: 15px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            text-decoration: none;
+        }
+
+        .elementor-icon:hover {
+            background-color: var(--lime-green);
+            color: var(--primary-green);
+            transform: scale(1.1);
+        }
+
+        .elementor-view-stacked .elementor-icon {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        .elementor-view-stacked .elementor-icon:hover {
+            background-color: var(--lime-green);
+            color: var(--primary-green);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-icon {
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .nav-icon:hover {
+            color: var(--lime-green);
+        }
+
+        /* ============================================
+           HERO SECTION - PORTFOLIO SLIDER STYLE
+           ============================================ */
+
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center right;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+            z-index: 3;
+        }
+
+        .hero-content {
+            max-width: 1100px;
+            padding: 0 5vw 0 18vw;
+            text-align: left;
+            padding-top: 120px;
+            width: 100%;
+        }
+
+        .hero-title {
+            margin-bottom: 0;
+        }
+
+        .hero-kicker {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(14px, 1.5vw, 18px);
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .hero-title {
+            font-size: clamp(22px, 3vw, 42px);
+            font-weight: 600;
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.15;
+            margin-bottom: 0;
+        }
+
+        .hero-deal {
+            font-size: clamp(40px, 7vw, 100px);
+            font-weight: 800;
+            color: var(--lime-green);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1;
+            display: block;
+        }
+
+        .hero-title a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .hero-title a:hover {
+            opacity: 0.9;
+        }
+
+        .color-accent-4 {
+            color: var(--lime-green);
+            display: inline-block;
+        }
+
+        /* Slide 3 Specific: Solid Black */
+        .hero-slide.slide-dark {
+            background: #0a0a0a;
+        }
+
+        .hero-slide.slide-dark .hero-overlay {
+            background: none;
+        }
+
+        /* Bain-style Slider Indicators: Tabs with Progress Bar */
+        .slider-indicators {
+            position: absolute;
+            bottom: 60px;
+            left: 12vw;
+            display: flex;
+            gap: 30px;
+            z-index: 100;
+        }
+
+        .indicator-tab {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            cursor: pointer;
+            width: 160px;
+        }
+
+        .indicator-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s;
+        }
+
+        .indicator-tab.active .indicator-label,
+        .indicator-tab:hover .indicator-label {
+            color: #ffffff;
+        }
+
+        .indicator-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .indicator-progress {
+            height: 100%;
+            width: 0%;
+            background: var(--lime-green);
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--lime-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hero-slide .btn {
+            margin-top: 35px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 34px;
+            border-radius: 30px;
+            border: none;
+            font-size: 14.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26, 77, 62, 0.3);
+        }
+
+        .btn-lime {
+            background: var(--lime-green);
+            color: var(--primary-green);
+        }
+
+        .btn-lime:hover {
+            background: var(--lime-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(196, 216, 46, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--lime-green);
+            color: var(--lime-green);
+        }
+
+        /* ============================================
+           ANIMATIONS & EFFECTS
+           ============================================ */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 1024px) {
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: clamp(18px, 2.5vw, 32px);
+            }
+
+            .hero-deal {
+                font-size: clamp(36px, 6vw, 80px);
+            }
+
+            .hero-content {
+                padding: 80px 5vw 0 14vw;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 80vh;
+                min-height: 600px;
+            }
+
+            .hero-title {
+                font-size: clamp(14px, 3vw, 22px);
+            }
+
+            .hero-deal {
+                font-size: clamp(28px, 6vw, 48px);
+            }
+
+            .hero-content {
+                padding: 70px 5vw 0 8vw;
+            }
+
+            .slider-indicators {
+                bottom: 30px;
+                left: 8vw;
+                gap: 15px;
+            }
+
+            .indicator-tab {
+                width: 120px;
+            }
+
+            .nav-container {
+                padding: 0 25px;
+            }
+        }
+
+        /* Mobile Toggle */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 2.5px;
+            background: var(--dark-text);
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-toggle {
+                display: flex;
+            }
+            
+            .mobile-toggle span {
+                background: white;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================
+     NAVIGATION HEADER (Hero Overlay)
+     ============================================ -->
+    <nav class="top-nav" id="mainNav">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://www.image2url.com/r2/default/images/1777216092994-c7e885df-05b1-48e6-b802-69a615cb8fff.png"
+                    alt="Simphiwe Mtetwa Logo">
+            </a>
+
+            <div class="nav-right-wrap">
+                <ul class="main-nav">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li>
+                        <a href="#">Think Tank <i class="vamtamtheme- vamtam-theme-arrow-dawn" style="font-size: 12px; margin-left: 5px;"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="#">Environmental Resources</a></li>
+                            <li><a href="#">Research</a></li>
+                            <li><a href="#">Health & Wellness</a></li>
+                            <li><a href="#">Nonprofit</a></li>
+                            <li><a href="#">Sustainability</a></li>
+                            <li><a href="#">Philanthropy</a></li>
+                            <li><a href="#">Technology</a></li>
+                            <li><a href="#">Employee Engagement</a></li>
+                            <li><a href="#">Education</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Resources <i class="vamtamtheme- vamtam-theme-arrow-dawn" style="font-size: 12px; margin-left: 5px;"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="#">Podcast</a></li>
+                            <li><a href="#">Changemakers Library</a></li>
+                            <li><a href="#">Matter Magazine</a></li>
+                            <li><a href="#">Legacy Conference</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Store</a></li>
+                    <li><a href="#">Podcast</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <i class="fas fa-search nav-icon"></i>
+
+                    <div class="vamtam-has-theme-widget-styles elementor-element elementor-element-051dd67 elementor-view-stacked elementor-shape-circle elementor-widget elementor-widget-icon"
+                        data-id="051dd67" data-element_type="widget" data-widget_type="icon.default">
+                        <div class="elementor-widget-container">
+                            <div class="elementor-icon-wrapper">
+                                <a class="elementor-icon" href="#">
+                                    <i aria-hidden="true" class="vamtamtheme- vamtam-theme-nav"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ============================================
+     HERO SECTION - FEATURED ARTICLE SLIDER
+     ============================================ -->
+    <section class="hero-section">
+        <div class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="hero-slide active" rtrvr-ls="Slide 1" rtrvr-ro="0" tabindex="0">
+                <picture>
+                    <source srcset="https://simphiwemtetwa.africa/wp-content/uploads/2026/04/SIMPHIWE-MTETWA-1920-x-825-mm-12-scaled.jpg" media="(max-width: 768px)">
+                    <img src="https://simphiwemtetwa.africa/wp-content/uploads/2026/04/SIMPHIWE-MTETWA-1920-x-825-mm-12-scaled.jpg" alt="Inequality">
+                </picture>
+                <div class="hero-overlay">
+                    <div class="hero-content" style="padding-left: 18vw;">
+                        <span class="hero-tag">Technology Private Equity</span>
+                        <h1 class="hero-title">
+                            Why Inequality Persists:<br>
+                            Slaves Made a Deal with<br>
+                            Their Masters and The<br>
+                            Children of The Slaves<br>
+                            Continue to uphold the<br>
+                            <span class="hero-deal">Masters' Deal</span>
+                        </h1>
+                        <a href="#" class="btn btn-outline">Read more</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="hero-slide" rtrvr-ls="Slide 2" rtrvr-ro="1" tabindex="-1">
+                <picture>
+                    <source srcset="https://simphiwemtetwa.africa/wp-content/uploads/2026/04/SIMPHIWE-MTETWA-1920-x-825-mm-10-scaled.jpg" media="(max-width: 768px)">
+                    <img src="https://simphiwemtetwa.africa/wp-content/uploads/2026/04/SIMPHIWE-MTETWA-1920-x-825-mm-10-scaled.jpg" alt="Vision 2052">
+                </picture>
+                <div class="hero-overlay">
+                    <div class="hero-content" style="padding-left: 18vw;">
+                        <span class="hero-tag">Agentic AI</span>
+                        <h1 class="hero-title">
+                            <span class="hero-main">A 25-Year</span><br>
+                            <span class="hero-sub">Vision in</span><br>
+                            <span class="hero-deal">Motion</span>
+                        </h1>
+                        <a href="#" class="btn btn-outline">Read the guide</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-slide slide-dark" rtrvr-ls="Slide 3" rtrvr-ro="2" tabindex="-1">
+                <div class="hero-overlay">
+                    <div class="hero-content" style="padding-left: 18vw;">
+                        <span class="hero-tag">Performance Improvement</span>
+                        <h1 class="hero-title">
+                            <span class="hero-main">Unemployment Is Costing</span><br>
+                            <span class="hero-sub">South Africans</span><br>
+                            <span class="hero-deal">Half A Trillion Rand</span>
+                        </h1>
+                        <a href="#" class="btn btn-outline">Read more</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="hero-slide" rtrvr-ls="Slide 4" rtrvr-ro="3" tabindex="-1">
+                <img src="placeholder.jpg" alt="New Architecture">
+                <div class="hero-overlay">
+                    <div class="hero-content" style="padding-left: 18vw;">
+                        <span class="hero-tag">Technology</span>
+                        <h1 class="hero-title">
+                            <span class="hero-main">Why Agentic AI Demands</span><br>
+                            <span class="hero-sub">A New</span><br>
+                            <span class="hero-deal">Architecture</span>
+                        </h1>
+                        <a href="#" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-indicators">
+            <div class="indicator-tab active" data-slide="0">
+                <div class="indicator-label">Technology Private Equity</div>
+                <div class="indicator-track"><div class="indicator-progress"></div></div>
+            </div>
+            <div class="indicator-tab" data-slide="1">
+                <div class="indicator-label">Agentic AI</div>
+                <div class="indicator-track"><div class="indicator-progress"></div></div>
+            </div>
+            <div class="indicator-tab" data-slide="2">
+                <div class="indicator-label">Performance Improvement</div>
+                <div class="indicator-track"><div class="indicator-progress"></div></div>
+            </div>
+            <div class="indicator-tab" data-slide="3">
+                <div class="indicator-label">Technology</div>
+                <div class="indicator-track"><div class="indicator-progress"></div></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================
+     HERO SLIDER SCRIPT (Bain-style Progress Auto-Play)
+     ============================================ -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            const tabs = document.querySelectorAll('.indicator-tab');
+            const progressBars = document.querySelectorAll('.indicator-progress');
+            
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            const slideDuration = 6000; // 6 seconds per slide
+            let startTime = null;
+            let isPaused = false;
+
+            function resetProgress() {
+                progressBars.forEach(bar => bar.style.width = '0%');
+            }
+
+            function goToSlide(index) {
+                slides[currentSlide].classList.remove('active');
+                tabs[currentSlide].classList.remove('active');
+                resetProgress();
+
+                currentSlide = index;
+                
+                slides[currentSlide].classList.add('active');
+                tabs[currentSlide].classList.add('active');
+                
+                startProgress();
+            }
+
+            function nextSlide() {
+                let next = (currentSlide + 1) % totalSlides;
+                goToSlide(next);
+            }
+
+            function updateProgressBar() {
+                if (isPaused) {
+                    requestAnimationFrame(updateProgressBar);
+                    return;
+                }
+                
+                let now = Date.now();
+                let elapsed = now - startTime;
+                let percentage = (elapsed / slideDuration) * 100;
+                
+                if (percentage >= 100) {
+                    percentage = 100;
+                    progressBars[currentSlide].style.width = percentage + '%';
+                    nextSlide();
+                    return;
+                }
+                
+                progressBars[currentSlide].style.width = percentage + '%';
+                requestAnimationFrame(updateProgressBar);
+            }
+
+            function startProgress() {
+                startTime = Date.now();
+                isPaused = false;
+                requestAnimationFrame(updateProgressBar);
+            }
+
+            // Add click events to tabs
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+            });
+
+            // Start the initial progress
+            startProgress();
+
+            // Navigation scroll effect
+            window.addEventListener('scroll', function () {
+                const nav = document.getElementById('mainNav');
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
