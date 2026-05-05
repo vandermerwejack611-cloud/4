@@ -127,7 +127,7 @@
         .nav-container {
             max-width: none;
             margin: 0;
-            padding: 0 18vw 0 18vw;
+            padding: 0 10vw 0 10vw;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -151,14 +151,15 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            margin-left: -10%;
         }
 
         .logo img {
             height: 85px;
             width: auto;
             transition: transform 0.3s;
+            animation: pulseFade 4s ease-in-out infinite;
         }
+
 
         .logo:hover img {
             transform: scale(1.03);
@@ -366,7 +367,12 @@
 
         .hero-slide.active {
             opacity: 1;
-            z-index: 2;
+            z-index: 5;
+            visibility: visible;
+        }
+
+        .slide-dark {
+            background: #111 !important;
         }
 
         .hero-slide img {
@@ -390,7 +396,7 @@
 
         .hero-content {
             max-width: 1100px;
-            padding: 0 5vw 0 18vw;
+            padding: 0 5vw 0 10vw;
             text-align: left;
             padding-top: 120px;
             width: 100%;
@@ -575,11 +581,11 @@
         .hero-tabs {
             position: absolute;
             bottom: 40px;
-            left: 18vw;
+            left: 10vw;
             display: flex;
             gap: 30px;
             z-index: 10;
-            width: calc(100% - 36vw);
+            width: calc(100% - 20vw);
         }
 
         .hero-tab {
@@ -756,22 +762,20 @@
             height: 100px;
             width: auto;
             transition: transform 0.3s;
-            animation: pulseFade 2.5s ease-in-out infinite;
+            animation: pulseFade 4s ease-in-out infinite;
         }
 
         @keyframes pulseFade {
-
-            0%,
-            100% {
-                opacity: 0.6;
+            0%, 100% {
+                opacity: 0.85;
                 transform: scale(1);
             }
-
             50% {
                 opacity: 1;
-                transform: scale(1.05);
+                transform: scale(1.04);
             }
         }
+
 
         .side-panel-content h3 {
             font-family: 'Georgia', serif;
@@ -838,6 +842,40 @@
         .side-panel-nav a:hover {
             color: var(--primary-green);
         }
+
+        /* Side Panel staggered entry animation - Slower & Smoother */
+        .side-panel > *:not(.side-panel-close),
+        .side-panel-content > *,
+        .side-panel-contact > *,
+        .side-panel-nav li {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .side-panel.active > *:not(.side-panel-close),
+        .side-panel.active .side-panel-content > *,
+        .side-panel.active .side-panel-contact > *,
+        .side-panel.active .side-panel-nav li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Refined Staggered Delays for buttery sequence */
+        .side-panel.active .side-panel-logo { transition-delay: 0.4s; }
+        .side-panel.active .side-panel-content h3 { transition-delay: 0.5s; }
+        .side-panel.active .side-panel-content p { transition-delay: 0.6s; }
+        
+        .side-panel.active .side-panel-contact-item:nth-child(1) { transition-delay: 0.7s; }
+        .side-panel.active .side-panel-contact-item:nth-child(2) { transition-delay: 0.8s; }
+        .side-panel.active .side-panel-contact-item:nth-child(3) { transition-delay: 0.9s; }
+
+        .side-panel.active .side-panel-nav li:nth-child(1) { transition-delay: 1.0s; }
+        .side-panel.active .side-panel-nav li:nth-child(2) { transition-delay: 1.1s; }
+        .side-panel.active .side-panel-nav li:nth-child(3) { transition-delay: 1.2s; }
+        .side-panel.active .side-panel-nav li:nth-child(4) { transition-delay: 1.3s; }
+        
+        .side-panel.active .side-panel-cta { transition-delay: 1.4s; }
 
         /* ============================================
            WEF IMPACT SECTION - BRAND COLORS + 10% PADDING
@@ -1295,21 +1333,26 @@
 
         .news-scroll-track {
             display: inline-flex;
-            gap: 40px;
+            gap: 60px;
             will-change: transform;
-            transition: transform 0.1s linear;
+            /* Auto-scroll removed for mouse scroll control */
+        }
+
+        .news-banner-container:hover .news-scroll-track {
+            animation-play-state: paused;
         }
 
         .news-item {
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(40px, 6vw, 90px);
+            font-size: clamp(40px, 8vw, 110px);
             font-weight: 900;
             text-transform: uppercase;
             color: var(--primary-green);
             display: flex;
             align-items: center;
-            gap: 40px;
-            opacity: 0.9;
+            gap: 60px;
+            opacity: 1;
+            letter-spacing: -2px;
         }
 
         /* Outline text effect for some items to add depth */
@@ -1335,8 +1378,10 @@
             grid-template-columns: 50% 50%;
             background: var(--white);
             position: relative;
-            border-top: 1px solid var(--medium-gray);
+            margin-top: 40px;
         }
+
+
 
         @media (max-width: 1024px) {
             .spotlight-section {
@@ -1347,8 +1392,8 @@
         /* LEFT SIDE - STICKY FEATURED */
         .spotlight-sticky {
             position: sticky;
-            top: 0;
-            height: 100vh;
+            top: 100px; /* Offset for fixed navigation */
+            height: calc(100vh - 100px);
             overflow: hidden;
             background: var(--primary-green);
         }
@@ -1378,7 +1423,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 10% 10% 8% 18vw;
+            padding: 10% 10% 8% 10vw;
             background: linear-gradient(to top, rgba(26, 77, 62, 0.9) 0%, transparent 70%);
             color: var(--white);
         }
@@ -1463,6 +1508,29 @@
             background: var(--light-gray);
         }
 
+        .spotlight-cat-tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--white);
+            color: var(--primary-green);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .spotlight-item:hover .spotlight-cat-tag {
+            background: var(--primary-green);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
         .spotlight-img-box img {
             width: 100%;
             height: 100%;
@@ -1506,14 +1574,6 @@
             gap: 12px;
         }
 
-        .spotlight-cat-tag {
-            color: var(--primary-green);
-            border: 1px solid var(--primary-green);
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 9px;
-        }
-
         .spotlight-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 22px;
@@ -1552,6 +1612,510 @@
             font-weight: 600;
             color: #999;
         }
+
+        /* ============================================
+           FOUNDATION GRID SECTION
+           ============================================ */
+        .foundation-section {
+            padding: 120px 0;
+            background: #ffffff;
+        }
+
+        .foundation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 80px;
+            margin-top: 64px;
+        }
+
+        .foundation-card {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-right: 20px;
+        }
+
+        .foundation-card-img {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            background: var(--light-gray);
+        }
+
+        .foundation-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .foundation-card:hover .foundation-card-img img {
+            transform: scale(1.08);
+        }
+
+        .foundation-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-green);
+            line-height: 1.2;
+        }
+
+        .foundation-card p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #444;
+            margin: 0;
+        }
+
+        .foundation-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            padding-top: 10px;
+        }
+
+        .foundation-link svg {
+            transition: transform 0.3s ease;
+        }
+
+        .foundation-link:hover {
+            color: var(--lime-green);
+        }
+
+        .foundation-link:hover svg {
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 1024px) {
+            .foundation-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .foundation-card {
+                padding-right: 0;
+                border-bottom: 1px solid var(--medium-gray);
+                padding-bottom: 40px;
+            }
+            .foundation-card:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* ============================================
+           CTA BANNER SECTION
+           ============================================ */
+        .cta-banner-section {
+            padding: 80px 0 40px;
+            background: #ffffff;
+        }
+
+        .cta-card {
+            background: var(--primary-green);
+            border-radius: 16px;
+            color: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(26, 77, 62, 0.15);
+        }
+
+        .cta-top {
+            padding: 48px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .cta-info-wrap {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .cta-logo-box {
+            width: 72px;
+            height: 72px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .cta-logo-box img {
+            width: 48px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .cta-text-content h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .cta-text-content h4 span {
+            font-weight: 400;
+            opacity: 0.8;
+            font-size: 20px;
+        }
+
+        .cta-text-content p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .cta-btn {
+            padding: 14px 32px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #ffffff;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            white-space: nowrap;
+        }
+
+        .cta-btn:hover {
+            background: var(--lime-green);
+            color: var(--primary-green);
+            transform: translateY(-2px);
+            border-color: var(--lime-green);
+        }
+
+        .cta-bottom {
+            padding: 28px 60px;
+            background: rgba(0, 0, 0, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cta-follow-text {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+
+        .cta-socials {
+            display: flex;
+            gap: 28px;
+        }
+
+        .cta-socials a {
+            color: #ffffff;
+            font-size: 20px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .cta-socials a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 1024px) {
+            .cta-top {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px;
+                gap: 30px;
+            }
+            .cta-bottom {
+                flex-direction: column;
+                gap: 24px;
+                align-items: flex-start;
+                padding: 32px 40px;
+            }
+            .cta-socials {
+                width: 100%;
+                justify-content: space-between;
+                gap: 15px;
+            }
+        }
+
+        /* CTA VARIANT: FULL WIDTH */
+        .cta-full-width {
+            background: var(--primary-green);
+            color: #ffffff;
+            width: 100%;
+            margin: 0;
+            border-radius: 0;
+        }
+
+        .cta-full-width .cta-top,
+        .cta-full-width .cta-bottom {
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+
+        /* CTA VARIANT: MINIMAL (NO BG) */
+        .cta-minimal {
+            background: #ffffff;
+            padding: 80px 0;
+            margin: 0;
+        }
+
+        .cta-minimal .cta-card {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            color: var(--dark-text);
+        }
+
+        .cta-minimal .cta-top {
+            padding: 40px 0;
+            border-top: 1px solid var(--medium-gray);
+        }
+
+        .cta-minimal .cta-logo-box {
+            background: var(--light-gray);
+            border: 1px solid var(--medium-gray);
+        }
+
+        .cta-minimal .cta-logo-box img {
+            filter: none;
+        }
+
+        .cta-minimal .cta-text-content h4 {
+            color: var(--primary-green);
+        }
+
+        .cta-minimal .cta-text-content p {
+            color: #444;
+        }
+
+        .cta-minimal .cta-btn {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .cta-minimal .cta-btn:hover {
+            background: var(--primary-green);
+            color: #ffffff;
+            border-color: var(--primary-green);
+        }
+
+        .cta-minimal .cta-bottom {
+            padding: 24px 0;
+            background: transparent;
+            border-bottom: 1px solid var(--medium-gray);
+            justify-content: space-between;
+        }
+
+        .cta-minimal .cta-follow-text {
+            color: #666;
+        }
+
+        .cta-minimal .cta-socials a {
+            color: var(--primary-green);
+        }
+
+        /* ============================================
+           FOOTER SECTION
+           ============================================ */
+        .main-footer {
+            background: var(--primary-green);
+            color: #ffffff;
+            padding: 120px 0 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .footer-col h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--lime-green);
+            margin-bottom: 40px;
+        }
+
+        .footer-logo-wrap {
+            margin-bottom: 32px;
+        }
+
+        .footer-logo {
+            height: 70px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-about p {
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.7;
+            max-width: 320px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 18px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--lime-green);
+            padding-left: 5px;
+        }
+
+        .footer-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 16px;
+            opacity: 0.7;
+        }
+
+        .footer-contact-item i {
+            color: var(--lime-green);
+            font-size: 18px;
+            margin-top: 4px;
+        }
+
+        .footer-contact-item span {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-social-row {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .footer-social-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 18px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .footer-social-btn:hover {
+            background: var(--lime-green);
+            color: var(--primary-green);
+            border-color: var(--lime-green);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        .footer-copyright {
+            opacity: 0.5;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-legal a {
+            color: #ffffff;
+            text-decoration: none;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .footer-legal a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 60px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+            .footer-legal {
+                justify-content: center;
+            }
+        }
+
+        /* ============================================
+           SCROLL REVEAL SYSTEM
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
 
         /* ============================================
            RESPONSIVE DESIGN
@@ -1755,7 +2319,7 @@
                         alt="Inequality">
                 </picture>
                 <div class="hero-overlay">
-                    <div class="hero-content" style="padding-left: 18vw;">
+                    <div class="hero-content" style="padding-left: 10vw;">
                         <span class="hero-tag">Social Justice</span>
                         <h1 class="hero-title">
                             Why Inequality Persists:<br>
@@ -1783,7 +2347,7 @@
                         alt="Vision 2052">
                 </picture>
                 <div class="hero-overlay">
-                    <div class="hero-content" style="padding-left: 18vw;">
+                    <div class="hero-content" style="padding-left: 10vw;">
                         <span class="hero-tag">Strategic Vision</span>
                         <h1 class="hero-title">
                             <span class="hero-main">A 25-Year</span><br>
@@ -1801,7 +2365,7 @@
             <!-- Slide 3 -->
             <div class="hero-slide slide-dark" rtrvr-ls="Slide 3" rtrvr-ro="2" tabindex="-1">
                 <div class="hero-overlay">
-                    <div class="hero-content" style="padding-left: 18vw;">
+                    <div class="hero-content" style="padding-left: 10vw;">
                         <span class="hero-tag">Economic Impact</span>
                         <h1 class="hero-title">
                             <span class="hero-main">Unemployment Is Costing</span><br>
@@ -1821,7 +2385,7 @@
                 <img src="https://simphiwemtetwa.africa/wp-content/uploads/2026/04/SIMPHIWE-MTETWA-1920-x-825-mm-11-scaled.jpg"
                     alt="Podcast">
                 <div class="hero-overlay">
-                    <div class="hero-content" style="padding-left: 18vw;">
+                    <div class="hero-content" style="padding-left: 10vw;">
                         <span class="hero-tag">The Podcast</span>
                         <h1 class="hero-title">
                             <span class="hero-main">Conversations That</span><br>
@@ -1866,7 +2430,7 @@
     <!-- ============================================
          IMPACT SECTION - WEF STYLE WITH BRAND COLORS
          ============================================ -->
-    <section class="wef-impact-section">
+    <section class="wef-impact-section reveal">
         <div class="wef-container">
             <!-- HERO SPLIT: Text Left + Video Right -->
             <div class="wef-hero-split">
@@ -1958,234 +2522,522 @@
          ============================================ -->
     <div class="news-banner-container">
         <div class="news-scroll-track" id="newsTrack">
+            <!-- Plain News Scroll -->
             <div class="news-item">
-                Latest News <span class="news-dot"></span>
-                Insights <span class="news-dot"></span>
-                Impact <span class="news-dot"></span>
-                Strategic Vision <span class="news-dot"></span>
+                News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News
             </div>
             <div class="news-item outline">
-                Latest News <span class="news-dot"></span>
-                Insights <span class="news-dot"></span>
-                Impact <span class="news-dot"></span>
-                Strategic Vision <span class="news-dot"></span>
+                News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News
             </div>
             <div class="news-item">
-                Latest News <span class="news-dot"></span>
-                Insights <span class="news-dot"></span>
-                Impact <span class="news-dot"></span>
-                Strategic Vision <span class="news-dot"></span>
+                News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News
             </div>
             <div class="news-item outline">
-                Latest News <span class="news-dot"></span>
-                Insights <span class="news-dot"></span>
-                Impact <span class="news-dot"></span>
-                Strategic Vision <span class="news-dot"></span>
+                News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News <span class="news-dot"></span> News
             </div>
         </div>
     </div>
 
+
     <!-- ============================================
          SPOTLIGHT SECTION
          ============================================ -->
-    <section class="spotlight-section">
-        <!-- LEFT: STICKY FEATURED (Story 1) -->
-        <div class="spotlight-sticky">
-            <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1200&h=1800&fit=crop"
-                alt="Featured Spotlight" class="spotlight-sticky-img">
-            <div class="spotlight-overlay">
-                <span class="spotlight-label">Featured Spotlight</span>
-                <h2 class="spotlight-main-title">The Future of <br>African Impact <br>Investment</h2>
-                <a href="#" class="btn-line">
-                    Read Full Feature
-                    <i class="fas fa-arrow-right arrow-icon"></i>
+    <div class="wef-container reveal" style="padding-top: 100px; padding-bottom: 100px; background: #ffffff;">
+        <div class="wef-tabs-row" style="margin-bottom: 0;">
+            <span class="wef-tabs-label">Spotlight</span>
+        </div>
+
+        <section class="spotlight-section">
+
+            <!-- LEFT: STICKY FEATURED (Story 1) -->
+            <div class="spotlight-sticky">
+                <img src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=1200&h=1800&fit=crop"
+                    alt="Featured Spotlight" class="spotlight-sticky-img">
+                <div class="spotlight-overlay">
+                    <span class="spotlight-label">Featured Spotlight</span>
+                    <h2 class="spotlight-main-title">The Future of <br>African Impact <br>Investment</h2>
+                    <a href="#" class="btn-line">
+                        Read Full Feature
+                        <i class="fas fa-arrow-right arrow-icon"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- RIGHT: SCROLLABLE GRID (Stories 2-5) -->
+            <div class="spotlight-scrollable">
+                <div class="spotlight-grid">
+                    <!-- Story 2 -->
+                    <article class="spotlight-item">
+                        <div class="spotlight-img-box">
+                            <span class="spotlight-cat-tag">Leadership</span>
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=800&fit=crop"
+                                alt="Leadership">
+                        </div>
+                        <div class="spotlight-info">
+                            <div class="spotlight-meta">
+                                <span>May 2024</span>
+                            </div>
+                            <h3 class="spotlight-title">Dismantling Inequality: A 25-Year Vision</h3>
+                            <p class="spotlight-desc">Our commitment to measurable change starts with a radical rethink of Corporate Social Investment frameworks across the continent.</p>
+                        </div>
+                    </article>
+
+                    <!-- Story 3 -->
+                    <article class="spotlight-item">
+                        <div class="spotlight-img-box">
+                            <span class="spotlight-cat-tag">Environment</span>
+                            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=800&fit=crop"
+                                alt="Sustainability">
+                        </div>
+                        <div class="spotlight-info">
+                            <div class="spotlight-meta">
+                                <span>April 2024</span>
+                            </div>
+                            <h3 class="spotlight-title">Green Legacies: Why Environment Matters Most</h3>
+                            <p class="spotlight-desc">Sustainability is no longer a choice; it's the foundation of any enduring legacy in the modern African business landscape.</p>
+                        </div>
+                    </article>
+
+                    <!-- Story 4 -->
+                    <article class="spotlight-item">
+                        <div class="spotlight-img-box">
+                            <span class="spotlight-cat-tag">Technology</span>
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=800&fit=crop"
+                                alt="Technology">
+                        </div>
+                        <div class="spotlight-info">
+                            <div class="spotlight-meta">
+                                <span>April 2024</span>
+                            </div>
+                            <h3 class="spotlight-title">AI for Good: Human-Centric Innovation</h3>
+                            <p class="spotlight-desc">Exploring how artificial intelligence can be harnessed to solve community-level challenges without losing the human touch.</p>
+                        </div>
+                    </article>
+
+                    <!-- Story 5 -->
+                    <article class="spotlight-item">
+                        <div class="spotlight-img-box">
+                            <span class="spotlight-cat-tag">Education</span>
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=800&fit=crop"
+                                alt="Education">
+                        </div>
+                        <div class="spotlight-info">
+                            <div class="spotlight-meta">
+                                <span>March 2024</span>
+                            </div>
+                            <h3 class="spotlight-title">The Classroom of 2050: Empowering Youth</h3>
+                            <p class="spotlight-desc">Investing in skills development today to ensure the leaders of tomorrow have the tools they need to thrive.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="spotlight-footer">
+                    <span class="spotlight-count">5 Featured Stories</span>
+                    <button class="btn-show-more">View All Insights</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- ============================================
+         CTA NEWSLETTER BANNER
+         ============================================ -->
+    <section class="cta-banner-section">
+        <div class="wef-container">
+            <div class="cta-card reveal">
+                <!-- Top: Newsletter Info -->
+                <div class="cta-top">
+                    <div class="cta-info-wrap">
+                        <div class="cta-logo-box">
+                            <img src="https://simphiwemtetwa.africa/wp-content/uploads/2024/04/Simphiwe-6.png" alt="Logo">
+                        </div>
+                        <div class="cta-text-content">
+                            <h4>Simphiwe Mtetwa <span>Insights newsletter</span></h4>
+                            <p>Bringing you weekly curated insights and analysis on the global issues that matter.</p>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-btn">
+                        Subscribe today
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Bottom: Social Bar -->
+                <div class="cta-bottom">
+                    <span class="cta-follow-text">Follow us wherever you get your content</span>
+                    <div class="cta-socials">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VARIANT 2: FULL WIDTH CTA -->
+    <section class="cta-banner-section" style="padding: 0;">
+        <div class="cta-full-width">
+            <div class="cta-top">
+                <div class="cta-info-wrap">
+                    <div class="cta-logo-box">
+                        <img src="https://simphiwemtetwa.africa/wp-content/uploads/2024/04/Simphiwe-6.png" alt="Logo">
+                    </div>
+                    <div class="cta-text-content">
+                        <h4>Full Width Variant <span>Insights newsletter</span></h4>
+                        <p>A full-bleed design for maximum impact across the entire screen.</p>
+                    </div>
+                </div>
+                <a href="#" class="cta-btn">
+                    Subscribe today
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
                 </a>
             </div>
-        </div>
-
-        <!-- RIGHT: SCROLLABLE GRID (Stories 2-5) -->
-        <div class="spotlight-scrollable">
-            <div class="spotlight-grid">
-                <!-- Story 2 -->
-                <article class="spotlight-item">
-                    <div class="spotlight-img-box">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=800&fit=crop"
-                            alt="Leadership">
-                    </div>
-                    <div class="spotlight-info">
-                        <div class="spotlight-meta">
-                            <span class="spotlight-cat-tag">Leadership</span>
-                            <span>May 2024</span>
-                        </div>
-                        <h3 class="spotlight-title">Dismantling Inequality: A 25-Year Vision</h3>
-                        <p class="spotlight-desc">Our commitment to measurable change starts with a radical rethink of Corporate Social Investment frameworks across the continent.</p>
-                    </div>
-                </article>
-
-                <!-- Story 3 -->
-                <article class="spotlight-item">
-                    <div class="spotlight-img-box">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=800&fit=crop"
-                            alt="Sustainability">
-                    </div>
-                    <div class="spotlight-info">
-                        <div class="spotlight-meta">
-                            <span class="spotlight-cat-tag">Environment</span>
-                            <span>April 2024</span>
-                        </div>
-                        <h3 class="spotlight-title">Green Legacies: Why Environment Matters Most</h3>
-                        <p class="spotlight-desc">Sustainability is no longer a choice; it's the foundation of any enduring legacy in the modern African business landscape.</p>
-                    </div>
-                </article>
-
-                <!-- Story 4 -->
-                <article class="spotlight-item">
-                    <div class="spotlight-img-box">
-                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600&h=800&fit=crop"
-                            alt="Technology">
-                    </div>
-                    <div class="spotlight-info">
-                        <div class="spotlight-meta">
-                            <span class="spotlight-cat-tag">Technology</span>
-                            <span>April 2024</span>
-                        </div>
-                        <h3 class="spotlight-title">AI for Good: Human-Centric Innovation</h3>
-                        <p class="spotlight-desc">Exploring how artificial intelligence can be harnessed to solve community-level challenges without losing the human touch.</p>
-                    </div>
-                </article>
-
-                <!-- Story 5 -->
-                <article class="spotlight-item">
-                    <div class="spotlight-img-box">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=800&fit=crop"
-                            alt="Education">
-                    </div>
-                    <div class="spotlight-info">
-                        <div class="spotlight-meta">
-                            <span class="spotlight-cat-tag">Education</span>
-                            <span>March 2024</span>
-                        </div>
-                        <h3 class="spotlight-title">The Classroom of 2050: Empowering Youth</h3>
-                        <p class="spotlight-desc">Investing in skills development today to ensure the leaders of tomorrow have the tools they need to thrive.</p>
-                    </div>
-                </article>
-            </div>
-
-            <div class="spotlight-footer">
-                <span class="spotlight-count">5 Featured Stories</span>
-                <button class="btn-show-more">View All Insights</button>
+            <div class="cta-bottom">
+                <span class="cta-follow-text">Follow us wherever you get your content</span>
+                <div class="cta-socials">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Next Section Placeholder -->
-    <section
-        style="height: 60vh; background: var(--primary-green); display: flex; align-items: center; justify-content: center;">
-        <h2
-            style="font-family: 'Montserrat', sans-serif; color: var(--white); font-size: 2.5rem; text-align: center; padding: 0 10%;">
-            Empowering Africa's <span style="color: var(--lime-green);">Tomorrow</span></h2>
+    <!-- VARIANT 3: MINIMAL CTA (NO BG) -->
+    <section class="cta-minimal">
+        <div class="wef-container">
+            <div class="cta-card reveal">
+                <div class="cta-top">
+                    <div class="cta-info-wrap">
+                        <div class="cta-logo-box">
+                            <img src="https://simphiwemtetwa.africa/wp-content/uploads/2024/04/Simphiwe-6.png" alt="Logo">
+                        </div>
+                        <div class="cta-text-content">
+                            <h4>Minimalist Variant <span>Insights newsletter</span></h4>
+                            <p>A clean, transparent design with focus on typography and green accents.</p>
+                        </div>
+                    </div>
+                    <a href="#" class="cta-btn">
+                        Subscribe today
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="cta-bottom">
+                    <span class="cta-follow-text">Follow us wherever you get your content</span>
+                    <div class="cta-socials">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <!-- ============================================
+         FOUNDATION INFO SECTION
+         ============================================ -->
+    <section class="foundation-section reveal">
+        <div class="wef-container">
+            <div class="wef-tabs-row" style="margin-bottom: 0; border-bottom: 1px solid var(--medium-gray); padding-bottom: 24px;">
+                <span class="wef-tabs-label">More about Simphiwe Mtetwa</span>
+            </div>
+
+            <div class="foundation-grid">
+                <!-- Our Role -->
+                <div class="foundation-card">
+                    <div class="foundation-card-img">
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&h=400&fit=crop" alt="Our Role">
+                    </div>
+                    <h3>Our Role</h3>
+                    <p>For over 25 years, the Gates Foundation has been committed to fighting the greatest inequities in the world.</p>
+                    <a href="#" class="foundation-link">
+                        Learn more
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- How We Work -->
+                <div class="foundation-card">
+                    <div class="foundation-card-img">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop" alt="How we Work">
+                    </div>
+                    <h3>How we Work</h3>
+                    <p>We are focused on results. Those that can be measured. And those measured in ways beyond numbers.</p>
+                    <a href="#" class="foundation-link">
+                        Learn more
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Our Story -->
+                <div class="foundation-card">
+                    <div class="foundation-card-img">
+                        <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&h=400&fit=crop" alt="Our Story">
+                    </div>
+                    <h3>Our Story</h3>
+                    <p>Learn about the origins of the foundation and the values that drive our work.</p>
+                    <a href="#" class="foundation-link">
+                        Learn more
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         MAIN FOOTER
+         ============================================ -->
+    <footer class="main-footer">
+        <div class="wef-container">
+            <div class="footer-grid">
+                <!-- Column 1: About -->
+                <div class="footer-col footer-about">
+                    <div class="footer-logo-wrap">
+                        <img src="https://simphiwemtetwa.africa/wp-content/uploads/2024/04/Simphiwe-6.png" alt="Simphiwe Mtetwa" class="footer-logo">
+                    </div>
+                    <p>Simphiwe Mtetwa is committed to dismantling inequality and driving measurable, noticeable change in South Africa through transformative Corporate Social Investment.</p>
+                </div>
+
+                <!-- Column 2: Think Tank -->
+                <div class="footer-col">
+                    <h5>Think Tank</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Social Justice</a></li>
+                        <li><a href="#">Philanthropy</a></li>
+                        <li><a href="#">Education</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="footer-col">
+                    <h5>Resources</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">The Podcast</a></li>
+                        <li><a href="#">Matter Magazine</a></li>
+                        <li><a href="#">Changemakers Library</a></li>
+                        <li><a href="#">Official Store</a></li>
+                        <li><a href="#">Legacy Conference</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Connect -->
+                <div class="footer-col">
+                    <h5>Connect</h5>
+                    <div class="footer-contact-info">
+                        <div class="footer-contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Johannesburg, South Africa<br>Pan-African Reach</span>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@simphiwemtetwa.africa</span>
+                        </div>
+                    </div>
+                    <div class="footer-social-row">
+                        <a href="#" class="footer-social-btn"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-btn"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" class="footer-social-btn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="footer-social-btn"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2026 Simphiwe Mtetwa. All rights reserved.
+                </div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- ============================================
          JAVASCRIPT FUNCTIONALITY
          ============================================ -->
     <script>
-        // Navigation scroll effect
-        window.addEventListener('scroll', function () {
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation scroll effect
             const nav = document.getElementById('mainNav');
-            const logoWhite = document.querySelector('.logo-white');
-            const logoBlack = document.querySelector('.logo-black');
+            window.addEventListener('scroll', () => {
+                const logoWhite = document.querySelector('.logo-white');
+                const logoBlack = document.querySelector('.logo-black');
 
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-                logoWhite.style.display = 'none';
-                logoBlack.style.display = 'block';
-            } else {
-                nav.classList.remove('scrolled');
-                logoWhite.style.display = 'block';
-                logoBlack.style.display = 'none';
-            }
-        });
-
-        // Scrolling News Banner Parallax
-        const newsTrack = document.getElementById('newsTrack');
-        window.addEventListener('scroll', () => {
-            if (newsTrack) {
-                const scrollPos = window.scrollY;
-                // Move the track based on scroll position
-                // Adjust the 0.5 value to change speed
-                newsTrack.style.transform = `translateX(${-scrollPos * 0.4}px)`;
-            }
-        });
-
-        // Hero Slider Functionality
-        const slides = document.querySelectorAll('.hero-slide');
-        const tabs = document.querySelectorAll('.hero-tab');
-        const progressBars = document.querySelectorAll('.tab-progress');
-        let currentSlide = 0;
-        let slideInterval;
-        let progressInterval;
-        let startTime;
-        const duration = 6000;
-
-        function startSlider() {
-            startTime = Date.now();
-            updateProgress();
-            slideInterval = setInterval(nextSlide, duration);
-        }
-
-        function updateProgress() {
-            if (progressInterval) clearInterval(progressInterval);
-
-            progressInterval = setInterval(() => {
-                const elapsed = Date.now() - startTime;
-                const progress = Math.min((elapsed / duration) * 100, 100);
-
-                if (progressBars[currentSlide]) {
-                    progressBars[currentSlide].style.width = progress + '%';
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                    if (logoWhite) logoWhite.style.display = 'none';
+                    if (logoBlack) logoBlack.style.display = 'block';
+                } else {
+                    nav.classList.remove('scrolled');
+                    if (logoWhite) logoWhite.style.display = 'block';
+                    if (logoBlack) logoBlack.style.display = 'none';
                 }
-            }, 50);
-        }
-
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active');
-                tabs[i].classList.remove('active');
-                progressBars[i].style.width = '0%';
             });
 
-            slides[index].classList.add('active');
-            tabs[index].classList.add('active');
-            currentSlide = index;
-
-            startTime = Date.now();
-            updateProgress();
-
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, duration);
-        }
-
-        function nextSlide() {
-            let next = (currentSlide + 1) % slides.length;
-            showSlide(next);
-        }
-
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('click', () => {
-                showSlide(index);
+            // Scrolling News Banner - Mouse Scroll Parallax
+            const newsTrack = document.getElementById('newsTrack');
+            window.addEventListener('scroll', () => {
+                if (newsTrack) {
+                    const scrollPos = window.scrollY;
+                    const sectionOffset = newsTrack.parentElement.offsetTop;
+                    const windowHeight = window.innerHeight;
+                    
+                    // Animate based on scroll relative to the section
+                    if (scrollPos > sectionOffset - windowHeight && scrollPos < sectionOffset + windowHeight) {
+                        const movement = (scrollPos - sectionOffset) * 0.8;
+                        newsTrack.style.transform = `translateX(${-movement}px)`;
+                    }
+                }
             });
-        });
 
-        startSlider();
+            // Side Panel Implementation
+            const mobileToggle = document.getElementById('mobileToggle');
+            const closeSidePanel = document.getElementById('closeSidePanel');
+            const sidePanel = document.getElementById('sidePanel');
+            const backdrop = document.getElementById('sidePanelBackdrop');
 
-        document.getElementById('scrollToNextSection').addEventListener('click', () => {
-            const nextSection = document.querySelector('.magazine-promo');
-            if (nextSection) {
-                nextSection.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                window.scrollTo({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    sidePanel.classList.add('active');
+                    backdrop.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            if (closeSidePanel) {
+                closeSidePanel.addEventListener('click', () => {
+                    sidePanel.classList.remove('active');
+                    backdrop.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+
+            if (backdrop) {
+                backdrop.addEventListener('click', () => {
+                    sidePanel.classList.remove('active');
+                    backdrop.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+
+            // Hero Slider Functionality
+            const slides = document.querySelectorAll('.hero-slide');
+            const tabs = document.querySelectorAll('.hero-tab');
+            const progressBars = document.querySelectorAll('.tab-progress');
+            let currentSlide = 0;
+            let slideInterval;
+            let progressInterval;
+            let startTime;
+            const duration = 6000;
+
+            function startSlider() {
+                startTime = Date.now();
+                updateProgress();
+                slideInterval = setInterval(nextSlide, duration);
+            }
+
+            function updateProgress() {
+                if (progressInterval) clearInterval(progressInterval);
+                progressInterval = setInterval(() => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min((elapsed / duration) * 100, 100);
+                    if (progressBars[currentSlide]) {
+                        progressBars[currentSlide].style.width = progress + '%';
+                    }
+                }, 50);
+            }
+
+            function showSlide(index) {
+                if (!slides[index]) return;
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    if (tabs[i]) tabs[i].classList.remove('active');
+                    if (progressBars[i]) progressBars[i].style.width = '0%';
+                });
+
+                slides[index].classList.add('active');
+                if (tabs[index]) tabs[index].classList.add('active');
+                currentSlide = index;
+                startTime = Date.now();
+                updateProgress();
+
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, duration);
+            }
+
+            function nextSlide() {
+                let next = (currentSlide + 1) % slides.length;
+                showSlide(next);
+            }
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+
+            if (slides.length > 0) startSlider();
+            
+            // Scroll Reveal Implementation
+            const revealCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: unobserve if you only want it to happen once
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const revealObserver = new IntersectionObserver(revealCallback, {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            const scrollBtn = document.getElementById('scrollToNextSection');
+            if (scrollBtn) {
+                scrollBtn.addEventListener('click', () => {
+                    const nextSection = document.querySelector('.news-banner-container');
+                    if (nextSection) {
+                        const navHeight = 80;
+                        const top = nextSection.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                    }
                 });
             }
         });
@@ -2194,36 +3046,6 @@
             console.log('Navigating to:', pageId);
             window.scrollTo(0, 0);
         }
-
-        // Side Panel Implementation
-        const mobileToggle = document.getElementById('mobileToggle');
-        const sidePanel = document.getElementById('sidePanel');
-        const sidePanelBackdrop = document.getElementById('sidePanelBackdrop');
-        const closeSidePanel = document.getElementById('closeSidePanel');
-
-        function openSidePanel() {
-            sidePanel.classList.add('active');
-            sidePanelBackdrop.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSidePanelFunc() {
-            sidePanel.classList.remove('active');
-            sidePanelBackdrop.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        mobileToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            openSidePanel();
-        });
-        closeSidePanel.addEventListener('click', closeSidePanelFunc);
-        sidePanelBackdrop.addEventListener('click', closeSidePanelFunc);
-
-        document.querySelectorAll('.side-panel-nav a').forEach(link => {
-            link.addEventListener('click', closeSidePanelFunc);
-        });
     </script>
 
 </body>
